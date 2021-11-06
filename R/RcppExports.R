@@ -12,3 +12,14 @@ DynamProg_interface <- function(data_vec, Kmax) {
     .Call('_ChangepointPackage_DynamProg_interface', PACKAGE = 'ChangepointPackage', data_vec, Kmax)
 }
 
+#' Compute Square Loss
+#' @param sum_vec vector of cumulatively summed input data values [1 x N]
+#' @param N_vec vector from 1 to N [1 x N]
+#' @useDynlib ChangepointPackage
+#' @returns vector loss values [1 x N]
+#' @export
+#' [Rcpp::depends(RcppArmadillo)]
+loss <- function(sum_vec, N_vec) {
+    .Call('_ChangepointPackage_loss', PACKAGE = 'ChangepointPackage', sum_vec, N_vec)
+}
+
