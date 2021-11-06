@@ -8,9 +8,6 @@ using namespace arma;
 //' @param N_vec vector from 1 to N [1 x N]
 //' @useDynlib ChangepointPackage
 //' @returns vector loss values [1 x N]
-//' @export
-//' [Rcpp::depends(RcppArmadillo)]
-// [[Rcpp::export]]
 arma::vec loss(
     arma::vec sum_vec,
     arma::vec N_vec

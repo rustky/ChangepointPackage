@@ -4,15 +4,15 @@
 \alias{BINSEG}
 \title{Binary Segmentation}
 \usage{
-BINSEG(data.vec, Kmax)
+BINSEG(data.dt, Kmax)
 }
 \arguments{
-\item{data.vec}{numeric data vector of response variables[1 x n]}
+\item{data.dt}{numeric data table of response variables[A x B]}
 
-\item{Kmax}{int desired number of segments}
+\item{Kmax}{int desired number of segments [N]}
 }
 \value{
-Output list including the changepoint locations and the cluster assignment vector [1 x n]
+Output list including the changepoint locations [1 x N]
 }
 \description{
 Binary Segmentation

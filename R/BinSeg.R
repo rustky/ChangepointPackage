@@ -1,17 +1,14 @@
 #' Binary Segmentation
 #'
-#' @param data.vec numeric data vector of response variables[1 x n]
-#' @param Kmax int desired number of segments
+#' @param data.dt numeric data table of response variables[A x B]
+#' @param Kmax int desired number of segments [N]
 #'
 #' @importFrom utils tail
 #' @import data.table
-#' @return Output list including the changepoint locations and the cluster assignment vector [1 x n]
+#' @return Output list including the loss values at each split[1 x N]
 #'
 #' @export
-#'
-BINSEG <- function(data.vec, Kmax){
-  first_seg_loss <- NULL
-  requireNamespace(data.table)
+BINSEG <- function(data.dt, Kmax){
   loss <- function(cum.sum.vec, cum.square.vec, N.data.vec){
     cum.square.vec-cum.sum.vec^2/N.data.vec
   }
@@ -19,14 +16,14 @@ BINSEG <- function(data.vec, Kmax){
     segs.dt[, data.table(
       first_seg_end=seq(first_seg_start, second_seg_end-1)
     ), by=.(first_seg_start, second_seg_end)]}
-  data.dt <- data.table(data.vec)
   data.dt[, cum.data := cumsum(logratio)]
   data.dt[, .(logratio, cum.data)]
   data.dt[, cum.square := cumsum(logratio^2)]
   fstart <- 1
   fend <- nrow(data.dt)
   output.list <- list()
-  loss.vec <- loss(data.dt[,cum.data],data.dt[,cum.square],.N)
+  loss.vec <- loss(data.dt$cum.data, data.dt$cum.square,
+                   1:nrow(data.dt))
   output.list[["1"]] = tail(loss.vec,n =1)
   for(K in 2:Kmax){
     (possible.dt <- data.table(
@@ -76,6 +73,6 @@ BINSEG <- function(data.vec, Kmax){
     fstart <- min.idx
     fend <- segs.after.first.split[2,second_seg_end]
   }
-  utils::globalVariables(names(data.dt))
-  return(output.list)
+  out.vec <- do.call(rbind,output.list)
+  return(out.vec)
 }
