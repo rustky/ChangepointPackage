@@ -12,7 +12,7 @@ BINSEG(data.dt, Kmax)
 \item{Kmax}{int desired number of segments [N]}
 }
 \value{
-Output list including the changepoint locations [1 x N]
+Output list including the loss values at each split[1 x N]
 }
 \description{
 Binary Segmentation
