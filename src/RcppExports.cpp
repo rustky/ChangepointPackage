@@ -23,9 +23,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// loss
+arma::vec loss(arma::vec sum_vec, arma::vec N_vec);
+RcppExport SEXP _ChangepointPackage_loss(SEXP sum_vecSEXP, SEXP N_vecSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type sum_vec(sum_vecSEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type N_vec(N_vecSEXP);
+    rcpp_result_gen = Rcpp::wrap(loss(sum_vec, N_vec));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ChangepointPackage_DynamProg_interface", (DL_FUNC) &_ChangepointPackage_DynamProg_interface, 2},
+    {"_ChangepointPackage_loss", (DL_FUNC) &_ChangepointPackage_loss, 2},
     {NULL, NULL, 0}
 };
 
