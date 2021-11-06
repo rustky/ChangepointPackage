@@ -16,7 +16,7 @@ Compute loss values via binary segmentation
 data(neuroblastoma, package="neuroblastoma")
 library(data.table)
 nb.dt <- data.table(neuroblastoma$profiles)
-data.dt <- nb.dt[profile.id=="1" & chromosome=="1"]
+data.dt <- nb.dt[profile.id=="2" & chromosome=="3"]
 Kmax <- 5
 mine.change <- ChangepointPackage::BINSEG(data.dt,5)
 ```
